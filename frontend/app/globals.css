@@ -1,0 +1,100 @@
+/* Your working Tailwind CSS import for your current setup */
+@import "tailwindcss";
+
+/* Define your CSS variables for colors directly within :root */
+/* These are the HSL values from the shadcn/ui inspired design */
+:root {
+  /* Existing colors from your working setup (we'll ensure our components use our custom HSL) */
+  --background: #ffffff;
+  --foreground: #171717;
+
+  /* Our custom colors, using HSL values for flexibility and themeability */
+  --primary: 260 80% 50%; /* Violet */
+  --primary-foreground: 210 20% 98%; /* White/light grey */
+
+  --secondary: 220 80% 60%; /* Indigo */
+  --secondary-foreground: 222.2 47.4% 11.2%; /* Dark grey */
+
+  --accent: 210 40% 96.1%; /* Light accent for hover backgrounds */
+  --accent-foreground: 222.2 47.4% 11.2%; /* Dark text for accent */
+
+  --muted: 210 40% 96.1%; /* Light muted background */
+  --muted-foreground: 215.4 16.3% 46.9%; /* Muted text color */
+
+  --destructive: 0 84.2% 60.2%; /* Red for errors */
+  --destructive-foreground: 210 20% 98%; /* White text on destructive */
+
+  --border: 214.3 31.8% 91.4%; /* Light border color */
+  --input: 214.3 31.8% 91.4%; /* Input border color */
+  --ring: 222.2 84% 4.9%; /* Focus ring color (dark) */
+
+  --card: 0 0% 100%; /* Card background (white) */
+  --card-foreground: 222.2 84% 4.9%; /* Card text (dark) */
+
+  --popover: 0 0% 100%; /* Popover background (white) */
+  --popover-foreground: 222.2 84% 4.9%; /* Popover text (dark) */
+
+  --radius: 0.5rem; /* Border radius variable */
+}
+
+/* Dark mode colors, matching our custom HSL definitions */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a; /* Dark background */
+    --foreground: #ededed; /* Light foreground text */
+
+    --primary: 260 80% 50%; /* Dark mode primary (can be same or slightly adjusted) */
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 80% 60%; /* Dark mode secondary */
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 217.2 32.6% 17.5%; /* Dark muted background */
+    --muted-foreground: 215 20.2% 65.1%; /* Light muted text */
+
+    --accent: 217.2 32.6% 17.5%; /* Dark accent background */
+    --accent-foreground: 210 20% 98%; /* Light text on accent */
+
+    --destructive: 0 62.8% 30.6%; /* Dark destructive */
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+
+    --card: 222.2 84% 4.9%; /* Dark card background */
+    --card-foreground: 210 20% 98%; /* Light card text */
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 20% 98%;
+  }
+}
+
+/* Apply base styles to body using our custom CSS variables */
+body {
+  background: hsl(var(--background)); /* Use HSL for background/foreground now */
+  color: hsl(var(--foreground));
+  font-family: Arial, Helvetica, sans-serif; /* Your preferred font stack */
+}
+
+/* Custom Tailwind utility for gradients matching design */
+/* These remain the same as they use fixed hex values or Tailwind's var(--tw-gradient-stops) */
+.bg-gradient-to-r-violet-indigo {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-from: #8b5cf6 var(--tw-gradient-from-position); /* violet-500 */
+  --tw-gradient-to: #6366f1 var(--tw-gradient-to-position);     /* indigo-500 */
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.bg-gradient-to-br-violet-indigo {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+  --tw-gradient-from: #8b5cf6 var(--tw-gradient-from-position); /* violet-500 */
+  --tw-gradient-to: #6366f1 var(--tw-gradient-to-position);     /* indigo-500 */
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+.text-gradient-violet-indigo {
+  background-image: linear-gradient(to right, #8b5cf6, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
