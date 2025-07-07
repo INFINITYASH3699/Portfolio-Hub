@@ -99,7 +99,9 @@ const ClientsSection = ({ data, styling, isEditing, onDataChange }) => {
                   )}
                   <h3 className="text-xl font-semibold mb-2">{client.name}</h3>
                   {client.industry && <p className="text-sm text-muted-foreground mb-2">{client.industry}</p>}
-                  {client.testimonial && <p className="text-sm italic">"{client.testimonial}"</p>}
+                  {/* --- FIX: Use HTML entities for quotes --- */}
+                  {client.testimonial && <p className="text-sm italic">&ldquo;{client.testimonial}&rdquo;</p>}
+                  {/* --- END FIX --- */}
                 </div>
               )}
             </Card>

@@ -1,6 +1,7 @@
 // frontend/components/portfolio-sections/SkillsSection.js
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button'; // Assuming Button component
+import Image from 'next/image'; // --- NEW: Import Image component ---
 
 const SkillsSection = ({ data, styling, isEditing, onDataChange }) => {
   if (!data && !isEditing) return null;
@@ -83,7 +84,17 @@ const SkillsSection = ({ data, styling, isEditing, onDataChange }) => {
                 </div>
               ) : (
                 <div className="flex items-center space-x-4">
-                  {skill.icon && <img src={skill.icon} alt={skill.skillName} className="h-8 w-8 object-contain" />}
+                  {skill.icon && (
+                    // --- FIX: Replace <img> with <Image> ---
+                    <Image 
+                      src={skill.icon} 
+                      alt={skill.skillName || 'Skill icon'} 
+                      width={32} // h-8 w-8 is typically 32px by 32px
+                      height={32} 
+                      className="object-contain" 
+                    />
+                    // --- END FIX ---
+                  )}
                   <div>
                     <h3 className="text-lg font-semibold">{skill.skillName}</h3>
                     <p className="text-muted-foreground text-sm">{skill.proficiency}</p>

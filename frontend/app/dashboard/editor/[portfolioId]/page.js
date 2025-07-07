@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/Select";
 import { Switch } from "@/components/ui/Switch";
 import Link from "next/link";
-import PortfolioRenderer from "@/components/PortfolioRenderer";
+import PortfolioRenderer from "@/components/TemplateRenderer";
 import { applyGlobalStyling } from "@/lib/applyStyling";
 import {
   PlusCircle,

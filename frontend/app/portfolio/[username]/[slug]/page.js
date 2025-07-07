@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import api from '@/lib/axios';
 import { useToast } from '@/components/ui/Toast';
-import PortfolioRenderer from '@/components/PortfolioRenderer'; 
+import TemplateRenderer from '@/components/TemplateRenderer'; 
 import { applyGlobalStyling } from '@/lib/applyStyling';
 import Head from 'next/head'; // For SEO metadata
 
@@ -140,8 +140,8 @@ export default function PublicPortfolioPage({ params }) {
         <meta name="keywords" content={portfolio.seoSettings?.keywords?.join(', ') || ''} />
       </Head>
       <main>
-        {/* --- UPDATED PortfolioRenderer usage --- */}
-        <PortfolioRenderer 
+        {/* --- UPDATED TemplateRenderer usage --- */}
+        <TemplateRenderer 
           portfolio={portfolio} 
           template={templateForRendering} // Pass the template object
           isEditing={false} // Public view, so not editing

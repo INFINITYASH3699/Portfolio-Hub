@@ -89,7 +89,7 @@ export function AuthProvider({ children }) {
     setUser(null);
     setIsAuthenticated(false);
     clearAuthCookies();
-  }, [clearAuthCookies]);
+  }, [clearAuthCookies]); // Dependency: clearAuthCookies
 
   // Memoized auth check function
   const checkAuth = useCallback(async (force = false) => {
@@ -98,7 +98,7 @@ export function AuthProvider({ children }) {
     return requestManager.executeRequest('checkAuth', async () => {
       // Rate limiting check
       if (!requestManager.shouldCheckAuth(force)) {
-        if (!initialized) {
+        if (!initialized) { // initialized is state, so it needs to be a dependency if used inside useCallback
           setLoading(false);
           setInitialized(true);
         }
@@ -106,7 +106,7 @@ export function AuthProvider({ children }) {
       }
 
       // Skip if already authenticated and not forcing
-      if (isAuthenticated && !force) {
+      if (isAuthenticated && !force) { // isAuthenticated is state, so it needs to be a dependency
         if (!initialized) {
           setLoading(false);
           setInitialized(true);
@@ -145,7 +145,7 @@ export function AuthProvider({ children }) {
         
         // Only reset auth state for actual auth failures, not rate limits
         if (status !== 429) {
-          resetAuthState();
+          resetAuthState(); // resetAuthState is a dependency
         }
       } finally {
         if (mountedRef.current) {
@@ -154,7 +154,7 @@ export function AuthProvider({ children }) {
         }
       }
     });
-  }, []); // Empty dependency array - function doesn't depend on state
+  }, [initialized, isAuthenticated, resetAuthState]); // Dependencies for checkAuth
 
   // Handle auth failures from axios interceptor
   useEffect(() => {
@@ -172,7 +172,7 @@ export function AuthProvider({ children }) {
         window.removeEventListener('auth-failure', handleAuthFailure);
       };
     }
-  }, [resetAuthState, router]);
+  }, [resetAuthState, router]); // Dependencies for this useEffect
 
   // Component lifecycle management
   useEffect(() => {
@@ -185,18 +185,18 @@ export function AuthProvider({ children }) {
 
   // Initialize auth check ONCE on mount
   useEffect(() => {
-    if (!initialized) {
+    if (!initialized) { // initialized is state, so it needs to be a dependency
       console.log('🚀 Initializing auth...');
       
       const timer = setTimeout(() => {
         if (mountedRef.current && !initialized) {
-          checkAuth();
+          checkAuth(); // checkAuth is a dependency
         }
       }, 200);
       
       return () => clearTimeout(timer);
     }
-  }, []); // Empty dependency - only run once
+  }, [initialized, checkAuth]); // Dependencies for this useEffect
 
   const login = useCallback(async (email, password) => {
     return requestManager.executeRequest('login', async () => {
@@ -255,7 +255,7 @@ export function AuthProvider({ children }) {
         }
       }
     });
-  }, [toast, router, resetAuthState]);
+  }, [toast, router, resetAuthState]); // Dependencies for login
 
   const register = useCallback(async (username, email, password) => {
     return requestManager.executeRequest('register', async () => {
@@ -314,7 +314,7 @@ export function AuthProvider({ children }) {
         }
       }
     });
-  }, [toast, router, resetAuthState]);
+  }, [toast, router, resetAuthState]); // Dependencies for register
 
   const logout = useCallback(async (showToast = true) => {
     return requestManager.executeRequest('logout', async () => {
@@ -328,7 +328,7 @@ export function AuthProvider({ children }) {
       }
       
       resetAuthState();
-      setInitialized(true);
+      setInitialized(true); // Should always set initialized to true after an explicit logout attempt
       
       if (showToast && mountedRef.current) {
         toast({ 
@@ -343,7 +343,7 @@ export function AuthProvider({ children }) {
         setLoading(false);
       }
     });
-  }, [resetAuthState, toast, router]);
+  }, [resetAuthState, toast, router]); // Dependencies for logout
 
   const refreshUser = useCallback(async () => {
     return requestManager.executeRequest('refreshUser', async () => {
@@ -364,19 +364,19 @@ export function AuthProvider({ children }) {
         }
       }
     });
-  }, [logout]);
+  }, [logout]); // Dependency: logout
 
   const updateUser = useCallback((updatedUserData) => {
     if (mountedRef.current) {
       setUser(prev => ({ ...prev, ...updatedUserData }));
       console.log('👤 User updated');
     }
-  }, []);
+  }, []); // No external dependencies, setUser is stable
 
   const reAuthenticate = useCallback(async () => {
     console.log('🔄 Re-authenticating...');
     await checkAuth(true);
-  }, [checkAuth]);
+  }, [checkAuth]); // Dependency: checkAuth
 
   const value = {
     // State

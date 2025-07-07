@@ -1,8 +1,11 @@
 // frontend/components/templates/TemplateLayoutSelector.js
 import ModernLayout from './layouts/ModernLayout';
 import CreativeLayout from './layouts/CreativeLayout';
+// --- FIX: Ensure only one correct import for ProfessionalLayout ---
 import ProfessionalLayout from './layouts/ProfessionalLayout';
+// --- END FIX ---
 import PhotographyLayout from './layouts/PhotographyLayout';
+
 
 const layoutComponents = {
   modern: ModernLayout,
@@ -57,8 +60,10 @@ export const getLayoutInfo = (layoutType = 'modern') => {
   return layoutInfo[layoutType] || layoutInfo.modern;
 };
 
-export default {
+const TemplateLayoutSelector = {
   getLayoutComponent,
   getAvailableLayouts,
   getLayoutInfo
 };
+
+export default TemplateLayoutSelector;

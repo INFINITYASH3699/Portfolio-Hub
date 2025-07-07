@@ -72,8 +72,8 @@ const TestimonialsSection = ({ data, styling, isEditing, onDataChange, portfolio
                     label="Avatar URL"
                     value={test.avatar}
                     onChange={(value) => handleTestimonialChange(index, 'avatar', value)}
-                    portfolioId={portfolioId}     // <<<--- Pass to ImageInput
-                    currentSection={currentSection} // <<<--- Pass to ImageInput
+                    portfolioId={portfolioId}     // Pass to ImageInput
+                    currentSection={currentSection} // Pass to ImageInput
                   />
                   <Input
                     placeholder="Client Name"
@@ -111,7 +111,11 @@ const TestimonialsSection = ({ data, styling, isEditing, onDataChange, portfolio
                       className="rounded-full mx-auto mb-4 object-cover"
                     />
                   )}
-                  <p className="italic text-lg mb-4">"{test.testimonial}"</p>
+                  {/* --- FIX: Use CSS pseudoelements or single quotes for literal quotes --- */}
+                  <p className="italic text-lg mb-4">
+                    &ldquo;{test.testimonial}&rdquo;
+                  </p>
+                  {/* --- END FIX --- */}
                   <p className="font-semibold">{test.name}</p>
                   <p className="text-sm text-muted-foreground">{test.role}</p>
                   {test.rating > 0 && (
